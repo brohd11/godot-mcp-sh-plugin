@@ -4,9 +4,9 @@ extends RefCounted
 ## from the libraries it bundles.
 
 const GDSh = preload("res://addons/_lib/gdsh/_ns/gd_sh.gd")
-const UtilsManifest = preload("res://addons/_lib/gdsh_lib/utils/src/manifest.gd")
-const TreeManifest = preload("res://addons/_lib/gdsh_lib/tree/src/manifest.gd")
-const EditorManifest = preload("res://addons/_lib/gdsh_lib/editor/src/manifest.gd")
+const UtilsManifest = preload("res://addons/_lib/gdsh_lib/utils/cmd/manifest.gd")
+const TreeManifest = preload("res://addons/_lib/gdsh_lib/tree/cmd/manifest.gd")
+const EditorManifest = preload("res://addons/_lib/gdsh_lib/editor/cmd/manifest.gd")
 
 
 ## A GDSh.Host with `host_data` hooks for every request. `config` is a BridgeConfig: its
@@ -14,12 +14,8 @@ const EditorManifest = preload("res://addons/_lib/gdsh_lib/editor/src/manifest.g
 static func build(host_data:Dictionary, config):
 	var host = GDSh.Host.new({"host_data": host_data})
 	if config.gdsh_lib:
-		# Typed variables read the script resources; the manifests' paths survive an export.
-		var utils:Resource = UtilsManifest
-		host.add_command_dir(utils.resource_path.get_base_dir())
-		var tree:Resource = TreeManifest
-		host.add_command(tree.resource_path.get_base_dir().path_join("tree.gd"))
-		for ns in EditorManifest.NAMESPACES:
-			host.add_command(ns.resource_path)
+		# Each manifest sits in its package's cmd/ dir; its path survives an export.
+		for manifest:Resource in [UtilsManifest, TreeManifest, EditorManifest]:
+			host.add_command_dir(manifest.resource_path.get_base_dir())
 	# The user and project commands/ folders too: this editor host serves them.
 	return config.add_commands_to(host, true)

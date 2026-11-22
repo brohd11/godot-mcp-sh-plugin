@@ -5,7 +5,7 @@ extends SceneTree
 const Host = preload("res://addons/mcp_sh_godot/src/host.gd")
 const BridgeConfig = preload("res://addons/_lib/mcp_sh_bridge/src/bridge_config.gd")
 
-const EXPECTED = ["editor", "settings", "resource", "tree", "ls", "cat", "find"]
+const EXPECTED = ["editor", "settings", "resource", "tree", "utils", "ls", "cat", "find"]
 
 
 func _initialize():
