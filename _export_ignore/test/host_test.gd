@@ -1,11 +1,11 @@
 extends SceneTree
-## The host offers gdsh_lib's utils, tree, editor and test commands plus bridge.json's, and none of
+## The host offers gdsh_lib's utils, tree, editor, test and data commands plus bridge.json's, and none of
 ## them when gdshLib is off.
 ##   godot --headless --path . --script res://addons/mcp_sh_godot/_export_ignore/test/host_test.gd
 const Host = preload("res://addons/mcp_sh_godot/src/host.gd")
 const BridgeConfig = preload("res://addons/_lib/mcp_sh_bridge/src/bridge_config.gd")
 
-const EXPECTED = ["editor", "settings", "resource", "tree", "utils", "ls", "cat", "find", "test", "gdtest"]
+const EXPECTED = ["editor", "settings", "resource", "tree", "utils", "ls", "cat", "find", "test", "gdtest", "data"]
 
 
 func _initialize():
